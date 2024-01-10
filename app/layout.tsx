@@ -23,8 +23,8 @@ export default async function RootLayout({
 		<html lang="en">
 			<body className={inter.className}>
 				<Link href="/dashboard">dasboard</Link>
-				<Link href="/dashboard">blog</Link>
-				<Link href="/dashboard">auth</Link>
+				<Link href="/blog">blog</Link>
+				<Link href="/auth">auth</Link>
 				<SessionProvider session={session}>{children}</SessionProvider>
 			</body>
 		</html>
