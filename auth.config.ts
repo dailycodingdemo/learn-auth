@@ -7,24 +7,22 @@ export const authConfig = {
 	},
 	callbacks: {
 		authorized({ auth, request: { nextUrl } }) {
-			console.log(nextUrl.searchParams.get("callbackUrl"));
 			const isLoggedIn = !!auth?.user;
 
 			const isOnAuth = nextUrl.pathname.startsWith("/auth");
 
-			// if (isOnAuth) {
-			// 	if (!isLoggedIn) {
-			// 		return true;
-			// 	} else {
-			// 		return Response.redirect(
-			// 			nextUrl.searchParams.get("callbackUrl") ||
-			// 				new URL("/", nextUrl)
-			// 		);
-			// 	}
-			// } else if (isLoggedIn) {
-			// 	return true;
-			// }
-			return true;
+			if (isOnAuth) {
+				if (isLoggedIn) {
+					return Response.redirect(
+						nextUrl.searchParams.get("callbackUrl") ||
+							new URL("/", nextUrl)
+					);
+				}
+				return true;
+			} else if (isLoggedIn) {
+				return true;
+			}
+			return false;
 		},
 	},
 	providers: [
